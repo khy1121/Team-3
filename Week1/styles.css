@@ -2,6 +2,9 @@
   --blue: #4a86ff;
   --bg: #f3f5ff;
   --text-main: #000000;
+  --text-muted: #626682;
+  --text-soft: #484a64;
+  --line: #ebedf8;
   --white: #ffffff;
 }
 
@@ -99,4 +102,81 @@ a {
   line-height: normal;
   color: var(--blue);
   font-weight: 800;
+}
+
+.about-layout {
+  margin-top: 59px;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 40px;
+}
+
+.profile-card {
+  height: 498px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 30px 40px 24px;
+}
+
+.avatar {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #d7d9e6;
+}
+
+.profile-card h3 {
+  margin: 25px 0 15px;
+  text-align: center;
+  font-size: 40px;
+  line-height: normal;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.contact-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: 16px;
+  line-height: normal;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+.contact-list li:last-child {
+  line-height: 1.7;
+}
+
+.info-grid {
+  padding-top: 1px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: 84px;
+  column-gap: 58px;
+}
+
+.info-block h3 {
+  margin: 0 0 27px;
+  font-size: 32px;
+  line-height: normal;
+  font-weight: 700;
+}
+
+.info-block p {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.7;
+  font-weight: 700;
+  color: var(--text-muted);
 }
