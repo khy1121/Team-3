@@ -43,6 +43,14 @@ function App() {
     setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
   };
 
+  const handleDeleteMarker = (markerId) => {
+    setMarkers((prevMarkers) =>
+      prevMarkers.filter((marker) => marker.id !== markerId)
+    );
+
+    setOpenMarkerId(null);
+  };
+
   return (
     <div className="app">
       <h1>카카오맵 마커 등록</h1>
@@ -113,6 +121,17 @@ function App() {
                     }}
                   >
                     닫기
+                  </button>
+
+                  <button
+                    type="button"
+                    className="delete"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteMarker(marker.id);
+                    }}
+                  >
+                    삭제
                   </button>
                 </div>
               </CustomOverlayMap>
