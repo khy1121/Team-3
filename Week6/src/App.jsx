@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Map } from "react-kakao-maps-sdk";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
+import markerIcon from "../assets/markerIcon.svg";
 import "./App.scss";
 
 function App() {
@@ -7,6 +8,8 @@ function App() {
     lat: 37.5665,
     lng: 126.978,
   });
+
+  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -26,12 +29,55 @@ function App() {
     );
   }, []);
 
+  const handleMapClick = (_target, mouseEvent) => {
+    const latlng = mouseEvent.latLng;
+
+    const newMarker = {
+      id: Date.now(),
+      lat: latlng.getLat(),
+      lng: latlng.getLng(),
+      title: `마커 ${markers.length + 1}`,
+    };
+
+    setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
+  };
+
   return (
     <div className="app">
       <h1>카카오맵 마커 등록</h1>
-      <p>현재 위치를 중심으로 카카오맵을 표시합니다.</p>
+      <p>지도를 클릭하면 해당 위치에 마커가 생성됩니다.</p>
 
-      <Map center={center} level={4} className="map" />
+      <Map
+        center={center}
+        level={4}
+        className="map"
+        onClick={handleMapClick}
+      >
+        {markers.map((marker) => (
+          <MapMarker
+            key={marker.id}
+            position={{
+              lat: marker.lat,
+              lng: marker.lng,
+            }}
+            image={{
+              src: markerIcon,
+              size: {
+                width: 40,
+                height: 40,
+              },
+              options: {
+                offset: {
+                  x: 20,
+                  y: 40,
+                },
+              },
+            }}
+          />
+        ))}
+      </Map>
+
+      <p className="count">등록된 마커 수: {markers.length}</p>
     </div>
   );
 }

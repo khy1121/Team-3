@@ -18,7 +18,13 @@
 
 .map {
   width: 100%;
-  height: calc(100vh - 500px);
+  height: calc(100vh - 150px);
   min-height: 600px;
   border: 1px solid #ddd;
+}
+
+.count {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #12a8e8;
 }
