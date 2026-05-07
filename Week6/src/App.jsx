@@ -14,6 +14,7 @@ function App() {
 
   const [editingMarkerId, setEditingMarkerId] = useState(null);
   const [editingText, setEditingText] = useState("");
+  const [warningMessage, setWarningMessage] = useState("");
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -34,6 +35,18 @@ function App() {
   }, []);
 
   const handleMapClick = (_target, mouseEvent) => {
+    if (editingMarkerId !== null) {
+      setWarningMessage(
+        "마커 제목 수정 중에는 새로운 마커를 추가할 수 없습니다."
+      );
+
+      setTimeout(() => {
+        setWarningMessage("");
+      }, 800);
+
+      return;
+    }
+
     const latlng = mouseEvent.latLng;
 
     const newMarker = {
@@ -86,6 +99,8 @@ function App() {
     <div className="app">
       <h1>카카오맵 마커 등록</h1>
       <p>지도를 클릭하면 해당 위치에 마커가 생성됩니다.</p>
+
+      {warningMessage && <p className="warning-message">{warningMessage}</p>}
 
       <Map
         center={center}
