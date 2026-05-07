@@ -77,6 +77,11 @@ function App() {
     setEditingText("");
   };
 
+  const cancelEditTitle = () => {
+    setEditingMarkerId(null);
+    setEditingText("");
+  };
+
   return (
     <div className="app">
       <h1>카카오맵 마커 등록</h1>
@@ -175,10 +180,15 @@ function App() {
                     className="close"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setOpenMarkerId(null);
+
+                      if (editingMarkerId === marker.id) {
+                        saveEditTitle(marker.id);
+                      } else {
+                        setOpenMarkerId(null);
+                      }
                     }}
                   >
-                    닫기
+                    {editingMarkerId === marker.id ? "저장" : "닫기"}
                   </button>
 
                   <button
@@ -186,10 +196,15 @@ function App() {
                     className="delete"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleDeleteMarker(marker.id);
+
+                      if (editingMarkerId === marker.id) {
+                        cancelEditTitle();
+                      } else {
+                        handleDeleteMarker(marker.id);
+                      }
                     }}
                   >
-                    삭제
+                    {editingMarkerId === marker.id ? "취소" : "삭제"}
                   </button>
                 </div>
               </CustomOverlayMap>
