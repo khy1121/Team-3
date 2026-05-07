@@ -63,6 +63,57 @@
   }
 }
 
+.marker-title {
+  position: relative;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:hover::after {
+    content: "수정하시겠습니까?";
+    position: absolute;
+    left: 50%;
+    top: -32px;
+    transform: translateX(-50%);
+    width: max-content;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 400;
+    white-space: nowrap;
+    z-index: 10;
+  }
+}
+
+.title-edit-box {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  input {
+    width: 100%;
+    padding: 3px;
+    margin: 3px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #12a8e8;
+    box-shadow: 0 0 5px rgba(18, 168, 232, 0.5);
+  }
+}
+
 .count {
   margin-top: 20px;
   font-size: 20px;

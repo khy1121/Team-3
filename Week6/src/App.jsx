@@ -12,6 +12,9 @@ function App() {
   const [markers, setMarkers] = useState([]);
   const [openMarkerId, setOpenMarkerId] = useState(null);
 
+  const [editingMarkerId, setEditingMarkerId] = useState(null);
+  const [editingText, setEditingText] = useState("");
+
   useEffect(() => {
     if (!navigator.geolocation) {
       return;
@@ -49,6 +52,29 @@ function App() {
     );
 
     setOpenMarkerId(null);
+  };
+
+  const startEditTitle = (marker) => {
+    setEditingMarkerId(marker.id);
+    setEditingText(marker.title);
+  };
+
+  const saveEditTitle = (markerId) => {
+    const nextTitle = editingText.trim();
+
+    setMarkers((prevMarkers) =>
+      prevMarkers.map((marker) =>
+        marker.id === markerId
+          ? {
+              ...marker,
+              title: nextTitle === "" ? marker.title : nextTitle,
+            }
+          : marker
+      )
+    );
+
+    setEditingMarkerId(null);
+    setEditingText("");
   };
 
   return (
@@ -104,7 +130,39 @@ function App() {
                     e.stopPropagation();
                   }}
                 >
-                  <strong>{marker.title}</strong>
+                  {editingMarkerId === marker.id ? (
+                    <div className="title-edit-box">
+                      <input
+                        value={editingText}
+                        autoFocus
+                        onChange={(e) => {
+                          setEditingText(e.target.value);
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            saveEditTitle(marker.id);
+                          }
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <strong
+                      className="marker-title"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        startEditTitle(marker);
+                      }}
+                    >
+                      {marker.title}
+                    </strong>
+                  )}
 
                   <p>
                     위도: {marker.lat.toFixed(4)}
