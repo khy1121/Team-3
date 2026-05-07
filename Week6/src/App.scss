@@ -52,6 +52,7 @@
     margin: 5px;
     color: #000000;
     cursor: pointer;
+    transition: all 0.3s ease;
 
     &.close {
       background-color: #0fd233;
@@ -60,7 +61,20 @@
     &.delete {
       background-color: #e00f0f;
     }
+
+    &:hover {
+      font-weight: bold;
+      font-size: 15px;
+      opacity: 0.8;
+    }
   }
+}
+
+.count {
+  margin-top: 20px;
+  font-size: 30px;
+  color: #12a8e8;
+  background-color: yellow;
 }
 
 .marker-title {
@@ -122,10 +136,4 @@
   border: 1px solid #ffec99;
   color: #856404;
   font-size: 14px;
-}
-
-.count {
-  margin-top: 20px;
-  font-size: 20px;
-  color: #12a8e8;
 }
