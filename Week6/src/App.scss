@@ -23,6 +23,29 @@
   border: 1px solid #ddd;
 }
 
+.overlay {
+  width: 150px;
+  padding: 5px;
+  background-color: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 30px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 15px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    color: #333333;
+    line-height: 1.5;
+  }
+}
+
 .count {
   margin-top: 20px;
   font-size: 20px;

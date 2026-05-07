@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import markerIcon from "../assets/markerIcon.svg";
 import "./App.scss";
 
@@ -10,6 +10,7 @@ function App() {
   });
 
   const [markers, setMarkers] = useState([]);
+  const [openMarkerId, setOpenMarkerId] = useState(null);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -54,26 +55,50 @@ function App() {
         onClick={handleMapClick}
       >
         {markers.map((marker) => (
-          <MapMarker
-            key={marker.id}
-            position={{
-              lat: marker.lat,
-              lng: marker.lng,
-            }}
-            image={{
-              src: markerIcon,
-              size: {
-                width: 40,
-                height: 40,
-              },
-              options: {
-                offset: {
-                  x: 20,
-                  y: 40,
+          <div key={marker.id}>
+            <MapMarker
+              position={{
+                lat: marker.lat,
+                lng: marker.lng,
+              }}
+              image={{
+                src: markerIcon,
+                size: {
+                  width: 40,
+                  height: 40,
                 },
-              },
-            }}
-          />
+                options: {
+                  offset: {
+                    x: 20,
+                    y: 40,
+                  },
+                },
+              }}
+              onClick={() => {
+                setOpenMarkerId(marker.id);
+              }}
+            />
+
+            {openMarkerId === marker.id && (
+              <CustomOverlayMap
+                position={{
+                  lat: marker.lat,
+                  lng: marker.lng,
+                }}
+                yAnchor={1.35}
+              >
+                <div className="overlay">
+                  <strong>{marker.title}</strong>
+
+                  <p>
+                    위도: {marker.lat.toFixed(4)}
+                    <br />
+                    경도: {marker.lng.toFixed(4)}
+                  </p>
+                </div>
+              </CustomOverlayMap>
+            )}
+          </div>
         ))}
       </Map>
 
