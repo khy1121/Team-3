@@ -87,7 +87,15 @@ function App() {
                 }}
                 yAnchor={1.35}
               >
-                <div className="overlay">
+                <div
+                  className="overlay"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   <strong>{marker.title}</strong>
 
                   <p>
@@ -95,6 +103,17 @@ function App() {
                     <br />
                     경도: {marker.lng.toFixed(4)}
                   </p>
+
+                  <button
+                    type="button"
+                    className="close"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpenMarkerId(null);
+                    }}
+                  >
+                    닫기
+                  </button>
                 </div>
               </CustomOverlayMap>
             )}
